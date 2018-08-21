@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: pleungtestapp
-        image: pleungconn.azurecr.io/pleungms/pleungtestapp:$BUILD_ID
+        image: pleungcon.azurecr.io/pleungms/pleungtestapp:$BUILD_ID
         ports:
         - containerPort: 80
 ---
