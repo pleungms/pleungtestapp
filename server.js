@@ -11,17 +11,17 @@
 // ############################################################################
 // Note that port 80 will throw a "Error: listen EACCES 0.0.0.0:80" excemption
 // on your local machine, for testing use another port such as 3000
-var iPortNum = 3000;
+var iPortNum = 8080;
 
 var express = require('express');
 var app = express();
 
 // Routes
 app.get('/', function (req, res) {
-  res.send('Hello World! [from pleungtestapp] v2');
+  res.send('Hello World! [from pleungtestapp]');
 });
 
 // Create the server
-app.listen(80, function () {
+app.listen(iPortNum, function () {
   console.log('Example app listening on port ' + this.address().port);
 });
