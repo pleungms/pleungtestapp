@@ -1,0 +1,13 @@
+{  
+    "name":  "pleungtestapp",
+    "version":  "1.0.0",
+    "description": "Test Node.js on  Docker",
+    "author":  "Peter  Leung <pleungms@hotmail.com>",
+    "main": "server.js",
+    "scripts":  {
+        "start":  "node server.js"
+    },
+    "dependencies":  {
+        "express":  "*"
+    }  
+}

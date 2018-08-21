@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: pleungtestapp
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: pleungtestapp
+    spec:
+      containers:
+      - name: pleungtestapp
+        image: pleungconn.azurecr.io/pleungms/pleungtestapp:$BUILD_ID
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pleungtestapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: pleungtestapp
