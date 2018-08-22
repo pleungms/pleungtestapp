@@ -18,7 +18,7 @@ var app = express();
 
 // Routes
 app.get('/', function (req, res) {
-  res.send('Hello World! [from pleungtestapp]');
+  res.send('Hello World! [from pleungtestapp] from CI/CD build!');
 });
 
 // Create the server
