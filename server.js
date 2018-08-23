@@ -9,19 +9,37 @@
 //  Peter Leung    21/08/2018 Initial version
 //
 // ############################################################################
-// Note that port 80 will throw a "Error: listen EACCES 0.0.0.0:80" excemption
-// on your local machine, for testing use another port such as 3000
-var iPortNum = 80
-
 var express = require('express');
 var app = express();
 
-// Routes
-app.get('/', function (req, res) {
-  res.send('Hello World! [from pleungtestapp] from CI/CD build v2!');
-});
+// Obtain the environment the application will run in
+var env = process.env.NODE_ENV || 'dev';
+var config = require('./config')[env];
 
-// Create the server
-app.listen(iPortNum, function () {
+// Allow openning static html pages
+app.use(express.static('.'));
+
+// Root folder of the html
+var options = {
+    root: __dirname + '/public'
+};
+
+// Routes
+// Always serve the index.html
+app.get('*', function(req, res) {
+  res.sendFile('index.html', options, function(err) {
+	  if (err) {
+		  next(err);
+	  }
+  }); // load the angular page, will handle the page changes on the front-end
+});
+// *** Can remove below ***
+//app.get('/', function (req, res) {
+//  res.send('Hello World! [from pleungtestapp] from CI/CD build v2!');
+//});
+// ***
+
+// Create the server listening for http requests
+app.listen(config.server.port, function () {
   console.log('Example app listening on port ' + this.address().port);
 });
