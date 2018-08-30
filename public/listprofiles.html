@@ -14,6 +14,8 @@
 <html>
 <head>
 
+<link rel="stylesheet" type="text/css"href="listprofiles.css">
+
 <!--
 # Importing angular libraries
   -->
@@ -51,31 +53,39 @@ app.controller('appCtrl', function($scope, $http, $timeout) {
 
 <body>
 
-<p>Hello World! from main.html</p>
+<div class="main">
+Sample app with the following features...
+<ul>
+    <li> Running on Azure with CI/CD deployment</il>
+    <li> Front-end running on node.js server with angular js</il>
+    <li> Back-end running on node.js server with micro services design</il>
+    <li> Storage on Azure SQL Server database</il>
+</ul>
+</p>
+</div>
 
 <div ng-app="myApp" ng-controller="appCtrl">
 
-    <table>
+    <table class="gradienttable">
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>e-Mail</th>
+        <th><p>ID</p></th>
+        <th style="min-width:200px"><p>Name</p></th>
+        <th style="min-width:200px"><p>e-Mail</p></th>
     </tr>
     <tr ng-repeat="profile in profiledata">
         <td ng-repeat="profilerow in profile">
-                {{ profilerow.value }}
+             <p> {{ profilerow.value }} </p>
         </td>
     </tr>
     </table>
 
-<p> Raw data: </p>
-
-<!--    {{ profiledata }} -->
-	{{ statuscode }}
-    {{ statustext }}
+    <!-- display the status of the JSON call -->
+    <p class="status"> Status:
+        {{ statuscode }}
+        {{ statustext }}
+    </p>
 
 </div>
 
 </body>
 </html>
-
