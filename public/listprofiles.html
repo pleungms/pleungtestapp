@@ -32,7 +32,9 @@ app.controller('appCtrl', function($scope, $http, $timeout) {
 
         $http.get("http://40.113.137.215/api/getprofile")
         .then(function (response) {
-            $scope.content = response.data;
+
+            $scope.profiledata = response.data;
+
             $scope.statuscode = response.status;
             $scope.statustext = response.statusText;
         });
@@ -53,11 +55,27 @@ app.controller('appCtrl', function($scope, $http, $timeout) {
 
 <div ng-app="myApp" ng-controller="appCtrl">
 
-    {{ content }}
-    {{ statuscode }}
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>e-Mail</th>
+    </tr>
+    <tr ng-repeat="profile in profiledata">
+        <td ng-repeat="profilerow in profile">
+                {{ profilerow.value }}
+        </td>
+    </tr>
+    </table>
+
+<p> Raw data: </p>
+
+<!--    {{ profiledata }} -->
+	{{ statuscode }}
     {{ statustext }}
 
 </div>
 
 </body>
 </html>
+
