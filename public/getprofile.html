@@ -1,0 +1,90 @@
+<!--
+##############################################################################
+# File Name: getprofile.html
+# Description:
+#  XXX
+# Author: Peter Leung (pleungms@hotmail.com)
+# Modification history
+#  Author         Date       Description
+#  -------------- ---------- -------------------------------------------------
+#  Peter Leung    02/09/2018 Initial version
+#
+###############################################################################
+ -->
+<html>
+<head>
+
+<base href="/">
+    
+<link rel="stylesheet" type="text/css"href="listprofiles.css">
+
+<!--
+# Importing angular libraries
+  -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
+
+<!--
+# Angular functions defined
+  -->
+<script>
+    
+    var app = angular.module("myApp",[])
+                     .config(function($locationProvider) {
+                             $locationProvider.html5Mode(true);
+                    });
+    
+    app.controller('appCtrl', function($scope, $location) {
+        //alert($routeParams.pro_id);
+        //$scope.slocation = $location;
+        
+        $scope.onload = function() {
+            
+             $scope.searchObj = $location.search();
+             //alert(searchObj.pro_id);
+            
+             //frm_pro_name.value = searchObj.pro_id;
+             $scope.pro_id_val = $scope.searchObj.pro_id;
+            
+        } // onload
+        
+        $scope.updateProfile = function() {
+            
+            alert("update");
+            alert(frm_pro_id.value);
+            
+        }
+        
+        $scope.onload();
+        
+    }); // app.controller
+        
+</script>
+</head>
+
+<body>
+
+Get Profile 
+    
+    <div ng-app="myApp" ng-controller="appCtrl">
+        {{ searchObj.pro_id }}
+        
+        <form name="appForm" ng-submit="updateProfile()">
+            ID: <input type="text" ng_value="pro_id_val" id="frm_pro_id" ng-app="myApp" ng-model="frm.pro_id" ng-readonly="true">
+            Name: <input type="text" ng-value="pro_name_val" id="frm_pro_name" ng-app="myApp" ng-model="frm.pro_name">
+            e-Mail: <input type="text" ng-value="pro_email_val" id="frm_pro_email" ng-app="myApp" ng-model="frm.pro_email">
+            <button type="submit">Update Profile</button>
+        </form>
+        
+        ID: {{ frm.pro_id }}
+        Name: {{ frm.pro_name }}
+        e-Mail: {{ frm.pro_email }}
+    </div>
+    
+<p>
+    <a href=listprofiles.html> Show Profiles </a>
+</p>
+    
+</body>
+</html>

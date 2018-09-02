@@ -72,7 +72,17 @@ Sample app with the following features...
     </tr>
     <tr ng-repeat="profile in profiledata">
         <td ng-repeat="profilerow in profile">
-             <p> {{ profilerow.value }} </p>
+            
+            <div ng-if="profilerow.metadata.colName == 'pro_id'">
+                <p>
+                <center>
+                <a href="getprofile.html?pro_id={{ profilerow.value }}"> {{ profilerow.value }} </a>
+                </center>
+                </p>
+            </div>
+            <div ng-if="profilerow.metadata.colName != 'pro_id'">
+                <p> {{ profilerow.value }} </p>
+            </div>
         </td>
     </tr>
     </table>
