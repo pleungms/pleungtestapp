@@ -16,7 +16,7 @@
 
 <base href="/">
     
-<link rel="stylesheet" type="text/css"href="listprofiles.css">
+<link rel="stylesheet" type="text/css"href="/public/listprofiles.css">
 
 <!--
 # Importing angular libraries
@@ -84,11 +84,9 @@ Get Profile
             <button type="submit">Update Profile</button>
         </form>
         
-        ID: {{ frm.pro_id }}
-        Name: {{ frm.pro_name }}
-        e-Mail: {{ frm.pro_email }}
+
     <p>
-        <a href=listprofiles.html> Show Profiles </a>
+        <a href=/public/listprofiles.html target="_self"> Show Profiles </a>
     </p>
         
     <!-- display the status of the JSON call -->
@@ -96,6 +94,10 @@ Get Profile
         {{ profiledata }}
         {{ statuscode }}
         {{ statustext }}
+        <BR>
+        ID: {{ frm.pro_id }} <BR>
+        Name: {{ frm.pro_name }} <BR>
+        e-Mail: {{ frm.pro_email }} <BR>       
     </p>
         
     </div>
