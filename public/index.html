@@ -12,18 +12,16 @@
 
 <script>
 
-
-    var app = angular.module("myApp",[])
+angular.module("myApp",[])
                      .config(function($locationProvider) {
                              $locationProvider.html5Mode(true);
-                    });
-
-app.constant('CONFIG', {
-    'APP_NAME' : 'pleungtestapp',
-    'BUILD_ID' : '$BUILD_ID'
-});
-
-app.controller('GlobalVarController', ['$scope', 'CONFIG', function($scope, CONFIG) {
+                    })
+.constant('CONFIG', {
+    'APP_NAME'  : 'pleungtestapp',
+    'BUILD_ID'  : '$BUILD_ID',
+    'REPO_NAME' : '$REPO_NAME'
+})
+.controller('GlobalVarController', ['$scope', 'CONFIG', function($scope, CONFIG) {
 
     // If you wish to show the CONFIG vars in the console:
     console.log("setting var");
@@ -33,6 +31,7 @@ app.controller('GlobalVarController', ['$scope', 'CONFIG', function($scope, CONF
     $scope.config = CONFIG;
 }]);
 
+
 </script>
 
 </head>
@@ -41,11 +40,10 @@ app.controller('GlobalVarController', ['$scope', 'CONFIG', function($scope, CONF
 
 Hello World!!! v3!!!
 
-
 <p><a href="/public/main.html">main.html</a></p>
 <p><a href="/public/listprofiles.html">listprofiles.html</a></p>
 
-<span ng-app="myApp" ng-controller="GlobalVarController">{{config.APP_NAME}} | v{{config.BUILD_ID}}</span>
+<span ng-app="myApp" ng-controller="GlobalVarController">{{config.APP_NAME}} | v{{config.BUILD_ID}} | {{config.REPO_NAME}}</span>
 
 </body>
 </html>
