@@ -8,6 +8,7 @@
 #  Author         Date       Description
 #  -------------- ---------- -------------------------------------------------
 #  Peter Leung    02/09/2018 Initial version
+#  Peter Leung    09/09/2018 Updated to new subscription
 #
 ###############################################################################
  -->
@@ -15,7 +16,7 @@
 <head>
 
 <base href="/">
-    
+
 <link rel="stylesheet" type="text/css"href="/public/listprofiles.css">
 
 <!--
@@ -29,66 +30,66 @@
 # Angular functions defined
   -->
 <script>
-    
+
     var app = angular.module("myApp",[])
                      .config(function($locationProvider) {
                              $locationProvider.html5Mode(true);
                     });
-    
+
     app.controller('appCtrl', function($scope, $http, $location) {
         //alert($routeParams.pro_id);
         //$scope.slocation = $location;
-        
+
         $scope.onload = function() {
-            
+
             $scope.searchObj = $location.search();
             $scope.pro_id_val = $scope.searchObj.pro_id;
-            
-            //            
-            $http.get("http://40.113.137.215/api/getprofile?pro_id=" + $scope.searchObj.pro_id)
+
+            //
+            $http.get("http://13.73.139.10/api/getprofile?pro_id=" + $scope.searchObj.pro_id)
             .then(function (response) {
                 $scope.profiledata = response.data;
                 $scope.statuscode = response.status;
                 $scope.statustext = response.statusText;
-            }); // get            
-            
+            }); // get
+
             //$scope.pro_email_val = $scope.profiledata[1].value;
-            
+
         } // onload
-        
+
         $scope.updateProfile = function() {
-            
+
             alert("update");
             alert(frm_pro_id.value);
-            
+
         }
-        
+
         $scope.onload();
-        
+
     }); // app.controller
-        
+
 </script>
 </head>
 
 <body>
 
-Get Profile 
-    
+Get Profile
+
     <div ng-app="myApp" ng-controller="appCtrl">
         {{ searchObj.pro_id }}
-        
+
         <form name="appForm" ng-submit="updateProfile()">
             ID: <input type="text" ng_value="pro_id_val" id="frm_pro_id" ng-app="myApp" ng-model="frm.pro_id" ng-readonly="true">
             Name: <input type="text" ng-value="pro_name_val" id="frm_pro_name" ng-app="myApp" ng-model="frm.pro_name">
             e-Mail: <input type="text" ng-value="pro_email_val" id="frm_pro_email" ng-app="myApp" ng-model="frm.pro_email">
             <button type="submit">Update Profile</button>
         </form>
-        
+
 
     <p>
         <a href=/public/listprofiles.html target="_self"> Show Profiles </a>
     </p>
-        
+
     <!-- display the status of the JSON call -->
     <p class="status"> Status:
         {{ profiledata }}
@@ -97,9 +98,9 @@ Get Profile
         <BR>
         ID: {{ frm.pro_id }} <BR>
         Name: {{ frm.pro_name }} <BR>
-        e-Mail: {{ frm.pro_email }} <BR>       
+        e-Mail: {{ frm.pro_email }} <BR>
     </p>
-        
+
     </div>
 </body>
 </html>

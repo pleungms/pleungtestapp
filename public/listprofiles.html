@@ -8,12 +8,13 @@
 #  Author         Date       Description
 #  -------------- ---------- -------------------------------------------------
 #  Peter Leung    30/08/2018 Initial version
+#  Peter Leung    09/09/2018 Updated to new subscription
 #
 ###############################################################################
  -->
 <html>
 <head>
-    
+
 <base href="/">
 
 <link rel="stylesheet" type="text/css"href="/public/listprofiles.css">
@@ -34,7 +35,7 @@ app.controller('appCtrl', function($scope, $http, $timeout) {
 
     $scope.reload = function() {
 
-        $http.get("http://40.113.137.215/api/listprofiles")
+        $http.get("http://13.73.139.10/api/listprofiles")
         .then(function (response) {
             $scope.profiledata = response.data;
             $scope.statuscode = response.status;
@@ -74,7 +75,7 @@ Sample app with the following features...
     </tr>
     <tr ng-repeat="profile in profiledata">
         <td ng-repeat="profilerow in profile">
-            
+
             <div ng-if="profilerow.metadata.colName == 'pro_id'">
                 <p>
                 <center>
