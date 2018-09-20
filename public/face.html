@@ -102,6 +102,8 @@ app.controller('formController', function($scope, $http) {
         <img ng-src="{{picurl}}" width="50%">
     </div>
 
+    <h3>Number of faces: {{ formNumFaces }} </h3>
+
     <p class="status">
         formData: <BR>
         {{ formData }} <BR><BR>
@@ -109,8 +111,6 @@ app.controller('formController', function($scope, $http) {
         Return: <BR>
         {{ formResult }} <BR><BR>
 
-        Number of faces: <BR>
-        {{ formNumFaces }}
     </p>
 
 </body>
