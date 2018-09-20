@@ -2,6 +2,7 @@
 <head>
 
 <base href="/">
+<link rel="stylesheet" type="text/css" href="/public/pleungtestapp.css">
 
 <!--
 # Importing angular libraries
@@ -13,23 +14,22 @@
 <script>
 
 angular.module("myApp",[])
-                     .config(function($locationProvider) {
-                             $locationProvider.html5Mode(true);
-                    })
-.constant('CONFIG', {
-    'APP_NAME'  : 'pleungtestapp',
-    'BUILD_ID'  : '$BUILD_ID'
-})
-.controller('GlobalVarController', ['$scope', 'CONFIG', function($scope, CONFIG) {
+    .config(function($locationProvider) {
+        $locationProvider.html5Mode(true);
+    })
+    .constant('CONFIG', {
+        'APP_NAME'  : 'pleungtestapp',
+        'BUILD_ID'  : '$BUILD_ID'
+    })
+    .controller('GlobalVarController', ['$scope', 'CONFIG', function($scope, CONFIG) {
 
-    // If you wish to show the CONFIG vars in the console:
-    console.log("setting var");
-    console.log(CONFIG);
+        // If you wish to show the CONFIG vars in the console:
+        console.log("setting var");
+        console.log(CONFIG);
 
-    // And your CONFIG vars in .constant will be passed to the HTML doc with this:
-    $scope.config = CONFIG;
+        // And your CONFIG vars in .constant will be passed to the HTML doc with this:
+        $scope.config = CONFIG;
 }]);
-
 
 </script>
 
@@ -37,13 +37,45 @@ angular.module("myApp",[])
 
 <body>
 
-Hello World!!! v3!!!
+<h3>My Simple Test programs</h3>
 
-<p><a href="/public/main.html">main.html</a></p>
-<p><a href="/public/face.html">face.html</a></p>
-<p><a href="/public/listprofiles.html">listprofiles.html</a></p>
+<table border="1px">
+    <tr>
+        <th>URL</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="/public/main.html">main.html</a>
+        </td>
+        <td>
+            Just linking to another html file...
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="/public/listprofiles.html">listprofiles.html</a>
+        </td>
+        <td>
+            Simple application selecting data from a SQL Server database
+            using micro services / angular and built using CI/CD with VSTS
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="/public/face.html">face.html</a>
+        </td>
+        <td>
+            Simple application using the Microsoft Azure Cognitive Services
+            for Face recongition.
+        </td>
+    </tr>
+</table>
 
+<BR>
+<p class="status"> Status:
 <span ng-app="myApp" ng-controller="GlobalVarController">{{config.APP_NAME}} | v{{config.BUILD_ID}} | {{config.REPO_NAME}}</span>
+</p>
 
 </body>
 </html>

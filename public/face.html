@@ -1,6 +1,26 @@
+<!--
+##############################################################################
+# File Name: face.html
+# Description:
+#  Simple page that calls a micro service which calls the Azure Cognitive
+#  AI services of face detection to count the number of faces in the specific
+#  image (jpg)
+# Author: Peter Leung (pleungms@hotmail.com)
+# Modification history
+#  Author         Date       Description
+#  -------------- ---------- -------------------------------------------------
+#  Peter Leung    20/09/2018 Initial version
+#
+###############################################################################
+ -->
 <html>
 <head>
+<base href="/">
 
+<link rel="stylesheet" type="text/css" href="/public/listprofiles.css">
+<!--
+# Importing angular libraries
+  -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
@@ -9,92 +29,85 @@
 
 var app = angular.module('formApp', []);
 
+// the main application controller for angular
 app.controller('formController', function($scope, $http) {
 
-     $scope.formData = {};
-     $scope.formResult = {};
+    // initialise the variables
+    $scope.formData = {};
+    $scope.formResult = {};
+    $scope.formNumFaces = {};
 
-      // process the form
-      $scope.processForm = function() {
+    // main function to process the form
+    $scope.processForm = function() {
 
+        // display the picture (jpg) to be sent to face detection
+        $scope.picurl = $scope.formData.url;
 
-           console.log("hello");
+        // call the microservice
+        $http.get("http://13.73.139.10/api/getnumfaces?urlpic=" + $scope.formData.url)
+             .then(function (response) {
+                 $scope.formResult = response.data;
+                 $scope.statuscode = response.status;
+                 $scope.statustext = response.statusText;
 
-         var params = {
-            // Request parameters
-            "returnFaceId": "true",
-            "returnFaceLandmarks": "false",
-            //"returnFaceAttributes": "",
-        };
+                 // calculate the number of faces; which is just the number
+                 // of elements in the response data
+                 $scope.formNumFaces = $scope.formResult.length;
+        }); // get
 
-        var dataurl = {
-            url: "https://abcitsme.files.wordpress.com/2012/10/crowd_2.jpg"
-        };
+    }; // processForm /////////////////////////////////////////////////////////
 
-        console.log($.param(dataurl));
-
-
-         //$http({
-         //   method  : 'POST',
-         //   url     : 'https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?' + $.param(params),
-         //   data    : $.param($scope.formData),
-         //   headers : { 'Content-Type': 'application/x-www-form-urlencoded', 'Ocp-Apim-Subscription-Key': 'b5efa60097254480b312925e2c977f59' }  // set the headers so angular passing info as form data (not request payload)
-         //})
-         //.then(function successCallback(data) {
-         //   // on error
-         //   console.log("Success");
-         //}, function errorCallBack(response) {
-         //   // on error
-         //   console.log("Error");
-         //});
-
-        $.ajax({
-            url: "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?" + $.param(params),
-            beforeSend: function(xhrObj){
-                // Request headers
-                xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader("dataType","json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","b5efa60097254480b312925e2c977f59");
-            },
-            type: "POST",
-            // Request body
-            //data: JSON.stringify({"url":"https://abcitsme.files.wordpress.com/2012/10/crowd_2.jpg"}),
-            data: JSON.stringify($scope.formData),
-        })
-        .done(function(data) {
-            console.log("success");
-            console.log(data.length);
-
-            //$scope.formResult = "success";
-        })
-        .fail(function() {
-            console.log("error");
-        });
-
-      }; // function
 }); //app.controller
+
 </script>
 </head>
 
 <body ng-app="formApp" ng-controller="formController">
 
-<table>
+    <table class="gradienttable1">
+        <form ng-submit="processForm()">
+        <tr>
+            <td colspan="2" style="max-width:500px">
+            Using Microsoft Azure Cognitive Services to process an image and
+            return the number of faces in the image.
+            </td>
+        </tr>
+        <tr>
+            <td style="min-width:10px"> URL: </td>
+            <td style="min-width:200px"> <input type="text" size="80" id="url" ng-model="formData.url"> </td>
+        </tr>
+        <tr>
+            <td colspan="2"><center><button type="submit" style="width:100%">Detect Number of Faces</button></center></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="max-width:500px">
+            <LI>
+            <a href='https://azure.microsoft.com/en-us/services/cognitive-services/face/' target='_blank'>
+            Microsoft Azure Congitive Services - Face
+            </a>
+            </td>
+        </tr>
+        </form>
+    </table>
 
-<form ng-submit="processForm()">
+    <BR>
 
-    <tr>
-        <td> Url </td>
-        <td> <input type="text" id="url" ng-model="formData.url"> </td>
-    </tr>
+    <!-- Displaying the results -->
+    <div ng-init="picurl =''">
+        Image to send to face detection:<BR>
+        <img ng-src="{{picurl}}" width="50%">
+    </div>
 
-</table>
-        <button type="submit">Submit!</button></td>
-</form>
+    <p class="status">
+        formData: <BR>
+        {{ formData }} <BR><BR>
 
-    <p>{{ formData }}
-    <p>{{ formResult }}
+        Return: <BR>
+        {{ formResult }} <BR><BR>
 
-
+        Number of faces: <BR>
+        {{ formNumFaces }}
+    </p>
 
 </body>
 </html>
