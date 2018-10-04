@@ -1,0 +1,107 @@
+<html>
+<head>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
+
+<script>
+
+var app = angular.module('formApp', []);
+
+app.controller('formController', function($scope, $http) {
+
+     $scope.formData = {};
+     $scope.formResult = {};
+
+      // process the form
+      $scope.processForm = function() {
+
+
+           console.log("hello");
+
+           $scope.picurl = $scope.formData.url;
+
+         var params = {
+            // Request parameters
+            "returnFaceId": "true",
+            "returnFaceLandmarks": "false",
+            //"returnFaceAttributes": "",
+        };
+
+        var dataurl = {
+            url: "https://abcitsme.files.wordpress.com/2012/10/crowd_2.jpg"
+        };
+
+        console.log($.param(dataurl));
+
+
+         //$http({
+         //   method  : 'POST',
+         //   url     : 'https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?' + $.param(params),
+         //   data    : $.param($scope.formData),
+         //   headers : { 'Content-Type': 'application/x-www-form-urlencoded', 'Ocp-Apim-Subscription-Key': 'b5efa60097254480b312925e2c977f59' }  // set the headers so angular passing info as form data (not request payload)
+         //})
+         //.then(function successCallback(data) {
+         //   // on error
+         //   console.log("Success");
+         //}, function errorCallBack(response) {
+         //   // on error
+         //   console.log("Error");
+         //});
+
+        $.ajax({
+            url: "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?" + $.param(params),
+            beforeSend: function(xhrObj){
+                // Request headers
+                xhrObj.setRequestHeader("Content-Type","application/json");
+                xhrObj.setRequestHeader("dataType","json");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","b5efa60097254480b312925e2c977f59");
+            },
+            type: "POST",
+            // Request body
+            //data: JSON.stringify({"url":"https://abcitsme.files.wordpress.com/2012/10/crowd_2.jpg"}),
+            data: JSON.stringify($scope.formData),
+        })
+        .done(function(data) {
+            console.log("success");
+            console.log(data.length);
+
+            //$scope.formResult = "success";
+        })
+        .fail(function() {
+            console.log("error");
+        });
+
+      }; // function
+}); //app.controller
+</script>
+</head>
+
+<body ng-app="formApp" ng-controller="formController">
+
+<table>
+
+<form ng-submit="processForm()">
+
+    <tr>
+        <td> Url </td>
+        <td> <input type="text" id="url" ng-model="formData.url"> </td>
+    </tr>
+
+</table>
+        <button type="submit">Submit!</button></td>
+</form>
+
+<div ng-init="picurl = 'https://cdn.geekwire.com/wp-content/uploads/2016/04/20160404_Envision_93.jpg'">
+    <h1>Image:</h1>
+    <img ng-src="{{picurl}}" width="50%">
+</div>
+
+    <p>{{ formData }}
+    <p>{{ formResult }}
+
+
+
+</body>
+</html>
