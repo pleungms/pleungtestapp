@@ -9,6 +9,7 @@
 #  -------------- ---------- -------------------------------------------------
 #  Peter Leung    30/08/2018 Initial version
 #  Peter Leung    09/09/2018 Updated to new subscription
+#  Peter Leung    03/03/2019 Updated with new Micro Services IP
 #
 ###############################################################################
  -->
@@ -35,7 +36,7 @@ app.controller('appCtrl', function($scope, $http, $timeout) {
 
     $scope.reload = function() {
 
-        $http.get("http://13.73.139.10/api/listprofiles")
+        $http.get("http://137.117.158.89/api/listprofiles")
         .then(function (response) {
             $scope.profiledata = response.data;
             $scope.statuscode = response.status;

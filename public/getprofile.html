@@ -9,6 +9,7 @@
 #  -------------- ---------- -------------------------------------------------
 #  Peter Leung    02/09/2018 Initial version
 #  Peter Leung    09/09/2018 Updated to new subscription
+#  Peter Leung    03/03/2019 Updated with new Micro Services IP
 #
 ###############################################################################
  -->
@@ -46,7 +47,7 @@
             $scope.pro_id_val = $scope.searchObj.pro_id;
 
             //
-            $http.get("http://13.73.139.10/api/getprofile?pro_id=" + $scope.searchObj.pro_id)
+            $http.get("http://137.117.158.89/api/getprofile?pro_id=" + $scope.searchObj.pro_id)
             .then(function (response) {
                 $scope.profiledata = response.data;
                 $scope.statuscode = response.status;
